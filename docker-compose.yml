@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  go_kanban:
+    build: ./go_kanban_api
+    volumes:
+      - ./go_kanban_api:/api
+    ports:
+      - '5000:5000'
+  rust_kanban_api:
+    build: ./rust_kanban_api
+    # depends_on:
+    #   - db
+    ports: 
+      - '8000:8000'
+    volumes:
+      - ./rust_kanban_api:/app
+    container_name: teste_rust_kanban_api
+  phoenix:
+    build: ./elixir_kanban_websocket
+    depends_on:
+      - db
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./elixir_kanban_websocket:/app
+    environment:
+      MIX_ENV: dev
+      TERM: xterm
+  db: # Banco de dados
+    image: postgres
+    volumes:
+      - /var/lib/postgresql/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=elixir_kanban_websocket_dev
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres

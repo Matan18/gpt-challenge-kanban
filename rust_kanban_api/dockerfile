@@ -1,0 +1,24 @@
+FROM rust:1.75
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the Cargo.toml and Cargo.lock files to cache dependencies
+COPY ./Rocket.toml ./Cargo.toml ./Cargo.lock  ./
+
+# Create an empty src directory to avoid unnecessary cargo build
+RUN mkdir src && echo "fn main() {}" > src/main.rs
+
+RUN cargo install cargo-watch
+
+# Build the dependencies (this step can be cached)
+RUN cargo build --release
+
+# Copy the entire project to the container
+COPY . .
+
+# Expose the necessary port (if applicable)
+EXPOSE 8000
+
+# Start the application using cargo-watch for hot reload
+CMD ["cargo", "watch", "-x", "run"]

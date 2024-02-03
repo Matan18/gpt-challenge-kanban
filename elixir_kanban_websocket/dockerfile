@@ -1,0 +1,29 @@
+FROM elixir:1.14.5
+
+# Set environment variables
+ENV MIX_ENV=dev \
+  TERM=xterm
+
+# Install inotify-tools for file system monitoring
+RUN apt update 
+RUN apt install -y inotify-tools
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Install hex and rebar
+RUN mix local.hex --force && \
+  mix local.rebar --force
+
+# Install dependencies
+COPY mix.exs mix.lock ./
+RUN mix do deps.get, deps.compile
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the Phoenix port
+EXPOSE 4000
+
+# Start Phoenix endpoint with hot reload
+CMD ["mix", "phx.server"]
