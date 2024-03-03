@@ -55,3 +55,12 @@ Build a task management system that allows users to create, manage, and collabor
    - Design and implement a RESTful API to handle CRUD operations for tasks, projects, and users.
 
 This project will challenge you to work with multiple languages, each playing to its strengths in different aspects of the application. Feel free to adjust the features based on your preferences and add any additional functionalities you find interesting. Good luck, and have fun building!
+
+### Docs
+
+- [Application Structure](./application-description.md)
+- [User API Blueprint](./user-actions-description.md)
+- [Team API Blueprint](./team-actions-description.md)
+- [Project API Blueprint](./project-actions-description.md)
+- [Task API Blueprint](./task-actions-description.md)
+- [Task Comment API Blueprint](./task-comment-actions-description.md)
