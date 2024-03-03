@@ -52,7 +52,7 @@ classDiagram
     -project_id: string
     -title: string
     -field_type: FieldType
-    -options: ?string
+    -options: ?string[]
   }
 
   ProjectCustomFields -- FieldType

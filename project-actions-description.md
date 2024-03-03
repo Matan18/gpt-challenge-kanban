@@ -46,6 +46,26 @@ Creates a project, setting authenticated user as leader
       }
     ```
 
+  - WebSocket Notification
+    ```
+      {
+        "type": "project_created",
+        "data": {
+          "id": string,
+          "title": string,
+          "team_id": string,
+          "description": string,
+          "created_at": string,
+          "updated_at": string,
+          "leader": {
+            "id": string,
+            "name": string,
+            "email": string
+          }
+        }
+      }
+    ```
+
 ###### List Project [GET{?team_id}]
 
 List authenticated user Projects;
@@ -154,6 +174,27 @@ Get authenticated user Project;
     ```
 
 - Response 204
+
+  - WebSocket Notification
+    ```
+      {
+        "type": "project_updated",
+        "data": {
+          "id": string,
+          "title": string,
+          "team_id": string,
+          "description": string,
+          "created_at": string,
+          "updated_at": string,
+          "leader": {
+            "id": string,
+            "name": string,
+            "email": string
+          }
+        }
+      }
+    ```
+
 - Response 400
   - Body
     ```
@@ -192,6 +233,16 @@ Get authenticated user Project;
     - id (string) - project id
 
 - Response 204
+  - WebSocket Notification
+    ```
+      {
+        "type": "project_deleted",
+        "data": {
+          "id": string,
+          "team_id": string,
+        }
+      }
+    ```
 - Response 403
   - Body
     ```
@@ -226,11 +277,25 @@ Get authenticated user Project;
     ```
       {
         "title": string,
-        "field_type": FieldType
+        "field_type": FieldType,
+        "options"?: string[]
       }
     ```
 
 - Response 204
+  - WebSocket Notification
+    ```
+      {
+        "type": "custom_fields_created",
+        "data": {
+          "id": string,
+          "project_id": string,
+          "title": string,
+          "field_type": FieldType,
+          "options"?: string[]
+        }
+      }
+    ```
 - Response 403
   - Body
     ```
@@ -262,6 +327,16 @@ Get authenticated user Project;
     - field_id (string) - custom field id
 
 - Response 204
+  - WebSocket Notification
+    ```
+      {
+        "type": "custom_fields_deleted",
+        "data": {
+          "id": string,
+          "project_id": string
+        }
+      }
+    ```
 - Response 403
   - Body
     ```

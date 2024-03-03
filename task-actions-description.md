@@ -18,12 +18,12 @@ Creates a task, setting project_id based on project_id parameter
       {
         "title": string,
         "description": string,
-        "status": ?StatusType,
-        "assignee": ?string,
-        "dueDate": ?date,
-        "priority": ?string,
-        "tags": ?string[],
-        "custom_fields": ?[
+        "status"?: StatusType,
+        "assignee"?: string,
+        "dueDate"?: date,
+        "priority"?: string,
+        "tags"?: string[],
+        "custom_fields"?: [
           {
             "custom_field_id": string,
             "title": string,
@@ -50,9 +50,9 @@ Creates a task, setting project_id based on project_id parameter
         "title": string,
         "description": string,
         "status": StatusType,
-        "assignee": ?string,
-        "dueDate": ?date,
-        "priority": ?string,
+        "assignee"?: string,
+        "dueDate"?: date,
+        "priority"?: string,
         "tags": string[],
         "custom_fields": [
           {
@@ -61,6 +61,31 @@ Creates a task, setting project_id based on project_id parameter
             "value": string
           }
         ]
+      }
+    ```
+
+  - WebSocket Notification
+    ```
+      {
+        "type": "task_created",
+        "data": {
+          "id": string,
+          "project_id": string,
+          "title": string,
+          "description": string,
+          "status": StatusType,
+          "assignee"?: string,
+          "dueDate"?: date,
+          "priority"?: string,
+          "tags": string[],
+          "custom_fields": [
+            {
+              "custom_field_id": string,
+              "title": string,
+              "value": string
+            }
+          ]
+        }
       }
     ```
 
@@ -89,9 +114,9 @@ Creates a task comment, setting task_id based on id parameter
         "title": string,
         "description": string,
         "status": StatusType,
-        "assignee": ?string,
-        "dueDate": ?date,
-        "priority": ?string,
+        "assignee"?: string,
+        "dueDate"?: date,
+        "priority"?: string,
         "tags": string[],
         "custom_fields": [
           {
@@ -147,6 +172,30 @@ Update a task title
     ```
 
 - Response 204
+  - WebSocket Notification
+    ```
+      {
+        "type": "task_updated",
+        "data": {
+          "id": string,
+          "project_id": string,
+          "title": string,
+          "description": string,
+          "status": StatusType,
+          "assignee"?: string,
+          "dueDate"?: date,
+          "priority"?: string,
+          "tags": string[],
+          "custom_fields": [
+            {
+              "custom_field_id": string,
+              "title": string,
+              "value": string
+            }
+          ]
+        }
+      }
+    ```
 - Response 400
   - Body
     ```

@@ -42,6 +42,21 @@ Creates a task comment, setting task_id based on id parameter
       }
     ```
 
+  - WebSocket Notification
+    ```
+      {
+        "type": "task_comment_created",
+        "data": {
+           "id": string,
+          "task_id": string,
+          "user_id": string,
+          "created_at": string,
+          "updated_at": string,
+          "comment": string
+        }
+      }
+    ```
+
 ###### Get Task Comment [GET/project/{project_id}/task/{task_id}/comment/{comment_id}]
 
 Creates a task comment, setting task_id based on id parameter
@@ -95,6 +110,20 @@ Creates a task comment, setting task_id based on id parameter
     ```
 
 - Response 204
+  - WebSocket Notification
+    ```
+      {
+        "type": "task_comment_updated",
+        "data": {
+          "id": string,
+          "task_id": string,
+          "user_id": string,
+          "created_at": string,
+          "updated_at": string,
+          "comment": string
+        }
+      }
+    ```
 - Response 403
   - Body
     ```

@@ -45,6 +45,25 @@ Creates a team, setting authenticated user as leader
       }
     ```
 
+  - WebSocket Notification
+    ```
+      {
+        "type": "team_created",
+        "data": {
+          "id": string,
+          "title": string,
+          "description": string,
+          "created_at": string,
+          "updated_at": string,
+          "leader": {
+            "id": string,
+            "name": string,
+            "email": string
+          }
+        }
+      }
+    ```
+
 ###### List Team [GET]
 
 List authenticated user Teams;
@@ -157,6 +176,24 @@ List authenticated user Teams;
     ```
 
 - Response 204
+  - WebSocket Notification
+    ```
+      {
+        "type": "team_updated",
+        "data": {
+          "id": string,
+          "title"?: string,
+          "description"?: string,
+          "created_at": string,
+          "updated_at": string,
+          "leader"?: {
+            "id": string,
+            "name": string,
+            "email": string
+          }
+        }
+      }
+    ```
 - Response 403
   - Body
     ```
