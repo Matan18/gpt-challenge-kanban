@@ -21,7 +21,7 @@ Build a task management system that allows users to create, manage, and collabor
 2. **Task Management:**
 
    - Users should be able to create, edit, and delete tasks.
-   - Tasks should have attributes like title, description, due date, and status (e.g., in progress, completed).
+   - Tasks should have attributes like title, description, due date, started date, completed date, and status (e.g., in progress, completed).
    - Implement task categories or tags to organize tasks.
 
 3. **Collaboration:**
