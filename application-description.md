@@ -6,11 +6,16 @@ classDiagram
     -id: string
     -name: string
     -email: string
+    -created_at: date
+    -updated_at: date
   }
   class Team {
     -id: string
     -name: string
-    -leader: string
+    -description: string
+    -leader_id: string
+    -created_at: date
+    -updated_at: date
   }
   class TeamUser {
     - user_id: string
@@ -24,35 +29,41 @@ classDiagram
   class Project {
     -id: string
     -title: string
+    -description: string
     -team_id: string
+    -leader_id: string
+    -created_at: date
+    -updated_at: date
   }
 
+  User o-- Project
   Team *-- Project
 
   class FieldType {
     <<enumeration>>
-    DATE
-    TEXT
-    SELECT
-    USER
+    date
+    text
+    select
+    user
   }
 
   class ProjectCustomFields {
     -id: string
     -project_id: string
+    -title: string
     -field_type: FieldType
+    -options: ?string
   }
 
   ProjectCustomFields -- FieldType
   Project *-- ProjectCustomFields
 
-
   class StatusType {
     <<enumeration>>
-    PLANNING
-    READY_TO_DEV
-    IN_PROGRESS
-    COMPLETED
+    planning
+    ready_to_dev
+    in_progress
+    completed
   }
 
   class Task {
@@ -61,13 +72,15 @@ classDiagram
     -title: string
     -description: string
     -status: ?StatusType
+    -created_by: string
     -assignee: ?string
     -dueDate: ?date
-    -priority: string
+    -priority: ?string
     -tags: string[]
   }
 
   Project *-- Task
+  User -- Task
   Task -- StatusType
 
   class CustomFieldData {
@@ -100,9 +113,8 @@ classDiagram
 title: User related actions
 ---
 flowchart TD
-    User---CU((Create User))
-    User---SI((Sign In))
-    User---UN((Update Name))
+    User --- SI((Sign In))
+    User --- UN((Update Name))
 ```
 
 ```mermaid
@@ -110,9 +122,10 @@ flowchart TD
 title: Team related actions
 ---
 flowchart TD
-    User---CTM((Create Team))
-    User---RTM((Rename Team))
-    User---UTL((Update Leader))
+    User --- CTM((Create Team))
+    Team_Leader --- UTM((Update Team Data))
+    Member --- LTM((List Teams))
+    Member --- GTM((Get Team Data))
 ```
 
 ```mermaid
@@ -120,12 +133,13 @@ flowchart TD
 title: Project related actions
 ---
 flowchart TD
-    User --- CP((Create Project))
-    User --- DP((Delete Project))
-    User --- UPT((Update Title))
-    User --- RSTM((Reassign Team))
-    User --- CCF((Create Custom Fields))
-    User --- DCF((Delete Custom Fields))
+    Member --- CP((Create Project))
+    Member --- LP((List Project))
+    Member --- GP((Get Project Data))
+    Project_Leader --- UP((Update Project Data))
+    Project_Leader --- DP((Delete Project))
+    Project_Leader --- CCF((Create Custom Fields))
+    Project_Leader --- DCF((Delete Custom Fields))
 ```
 
 ```mermaid
@@ -133,14 +147,9 @@ flowchart TD
 title: Taks related actions
 ---
 flowchart TD
-    User --- CT((Create Task))
-    User --- UTT((Update Task Title))
-    User --- UTAS((Update Task Assignee))
-    User --- UTD((Update Task Description))
-    User --- UTS((Update Task Status))
-    User --- UTDL((Update Task Due Date))
-    User --- UTCFV((Update Task Custom Field Values))
-    User --- UTTG((Update Task Tags))
-    User --- CTC((Create Task Comment))
-    User --- UTC((Update Task Comment))
+    Member --- CT((Create Task))
+    Member --- UT((Update Task))
+    Member --- GT((Get Task))
+    Member --- CTC((Create Task Comment))
+    Member --- UTC((Update Task Comment))
 ```
